@@ -3,7 +3,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 
 const app = express();
-// Configuración CORS simple
+
 app.use(cors({
   origin: process.env.FRONTEND_URL, // Solo permitir este origen
   credentials: true, // Permitir cookies/autenticación
@@ -18,6 +18,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 require('./routes/posts.routes')(app);
 require('./routes/comments.routes')(app);
 require('./routes/contacto.routes')(app);
+require('./routes/likes.route')(app);
 
 // Manejador de errores global
 const errorHandler = require('./middlewares/errorHandler');

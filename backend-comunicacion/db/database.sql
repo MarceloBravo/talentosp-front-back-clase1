@@ -7,6 +7,7 @@ CREATE TABLE IF NOT EXISTS posts (
     contenido TEXT NOT NULL,
     autor VARCHAR(100) NOT NULL,
     estado ENUM('borrador', 'publicado', 'archivado') DEFAULT 'borrador',
+    likes INT DEFAULT 0,
     fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     fecha_actualizacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
