@@ -28,7 +28,7 @@ class LikesController{
                 throw new Error('postId es requerido.');
             }
             
-            const result = await this.model.addLike(postId);
+            const result = await this.model.removeLike(postId);
             if(result.affectedRows === 0){
                 throw new Error(`Post ${postId} no encontrado.`);
             }

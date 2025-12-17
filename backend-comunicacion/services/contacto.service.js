@@ -4,9 +4,9 @@ require('dotenv').config();
 /**
  * Envía un correo electrónico utilizando un servicio SMTP de prueba (Ethereal).
  * Los datos del formulario de contacto se incluyen en el cuerpo del correo.
- * @param {string} name - Nombre del remitente.
+ * @param {string} nombre - Nombre del remitente.
  * @param {string} email - Correo del remitente.
- * @param {string} message - Mensaje.
+ * @param {string} mensaje - Mensaje.
  * @returns {Promise<string>} - URL de vista previa del correo electrónico enviado.
  */
 async function sendContactEmail(nombre, email, mensaje) {
