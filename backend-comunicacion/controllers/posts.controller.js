@@ -1,4 +1,4 @@
-const PostsServices = require('../services/posts.services');
+const PostsServices = require('../services/posts.service');
 
 class AppError extends Error {
     constructor(message, statusCode) {

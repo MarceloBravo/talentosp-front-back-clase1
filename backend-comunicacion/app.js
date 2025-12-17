@@ -3,13 +3,21 @@ const express = require('express');
 const bodyParser = require('body-parser');
 
 const app = express();
-app.use(cors());
+// Configuración CORS simple
+app.use(cors({
+  origin: process.env.FRONTEND_URL, // Solo permitir este origen
+  credentials: true, // Permitir cookies/autenticación
+  methods: ['GET', 'POST', 'PUT', 'DELETE'], // Métodos permitidos
+  allowedHeaders: ['Content-Type', 'Authorization'] // Headers permitidos
+}));
+
 app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // Registro de rutas
 require('./routes/posts.routes')(app);
 require('./routes/comments.routes')(app);
+require('./routes/contacto.routes')(app);
 
 // Manejador de errores global
 const errorHandler = require('./middlewares/errorHandler');
