@@ -1,10 +1,8 @@
-import axios from 'axios';
-
-const API_URL = process.env.REACT_APP_API_URL;
+import instance from 'axiosInstance'
 
 async function getPosts() {
     try {
-        const response = await axios.get(`${API_URL}/api/posts`);
+        const response = await instance.get(`/api/posts`);
         return response.data;
     } catch (error) {
         console.error('Error obteniebdo los posts:', error);
@@ -14,7 +12,7 @@ async function getPosts() {
 
 async function getPostsById(postId){
     try {
-        const response = await axios.get(`${API_URL}/api/posts/${postId}`);
+        const response = await instance.get(`/api/posts/${postId}`);
         return response.data; 
     } catch (error) {
         console.error(`Error obteniendo el post requerido:`, error);
@@ -24,7 +22,7 @@ async function getPostsById(postId){
 
 async function createPost(data) {
     try {
-        const response = await axios.post(`${API_URL}/api/posts`, data);
+        const response = await instance.post(`/api/posts`, data);
         return response.data;
     } catch (error) {
         console.error('Error creando el post:', error);
@@ -34,7 +32,7 @@ async function createPost(data) {
 
 async function updatePost(postId, data) {
     try {
-        const response = await axios.put(`${API_URL}/api/posts/${postId}`, data);
+        const response = await instance.put(`/api/posts/${postId}`, data);
         return response.data;
     } catch (error) {
         console.error(`Error actualizando el post:`, error);
@@ -45,7 +43,7 @@ async function updatePost(postId, data) {
 
 async function deletePost(postId) {
     try {
-        const response = await axios.delete(`${API_URL}/api/posts/${postId}`);
+        const response = await instance.delete(`/api/posts/${postId}`);
         return response.data;
     } catch (error) {
         console.error(`Error eliminando el post:`, error);
@@ -55,7 +53,7 @@ async function deletePost(postId) {
 
 async function darLikePost(postId) {
     try {
-        const response = await axios.post(`${API_URL}/api/posts/${ postId }/likes`);
+        const response = await instance.post(`/api/posts/${ postId }/likes`);
         return response.data;
     } catch (error) {
         console.error(`Error dando like al post:`, error);
@@ -65,7 +63,7 @@ async function darLikePost(postId) {
 
 async function darUnlikePost(postId) {
     try {
-        const response = await axios.delete(`${API_URL}/api/posts/${ postId }/likes`);
+        const response = await instance.delete(`/api/posts/${ postId }/likes`);
         return response.data;
     } catch (error) {
         console.error(`Error quitando like al post:`, error);

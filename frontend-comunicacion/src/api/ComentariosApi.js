@@ -1,9 +1,8 @@
-import axios from "axios";
-const API_URL = process.env.REACT_APP_API_URL;
+import instance from 'axiosInstance'
 
 async function getComentariosByPostId(postId) {
     try {
-        const response = await axios.get(`${API_URL}/api/posts/${postId}/comments`);
+        const response = await instance.get(`/api/posts/${postId}/comments`);
         return response.data;
     } catch (error) {
         console.error(`Error obteniendo los comentarios del post:`, error);
@@ -13,7 +12,7 @@ async function getComentariosByPostId(postId) {
 
 async function addComentarioByPostId(postId, data) {
     try {
-        const response = await axios.post(`${API_URL}/api/posts/${postId}/comments`, data);
+        const response = await instance.post(`/api/posts/${postId}/comments`, data);
         return response.data;
     } catch (error) {
         console.error(`Error creando el comentario:`, error);
@@ -23,7 +22,7 @@ async function addComentarioByPostId(postId, data) {
 
 async function updateComentarioByPostId(postId, comentarioId, data) {
     try {
-        const response = await axios.put(`${API_URL}/api/posts/${postId}/comments/${comentarioId}`, data);
+        const response = await instance.put(`/api/posts/${postId}/comments/${comentarioId}`, data);
         return response.data;
     } catch (error) {
         console.error(`Error actualizando el comentario:`, error);
@@ -33,7 +32,7 @@ async function updateComentarioByPostId(postId, comentarioId, data) {
 
 async function deleteComentarioByPostId(postId, comentarioId) {
     try {
-        const response = await axios.delete(`${API_URL}/api/posts/${postId}/comments/${comentarioId}`);
+        const response = await instance.delete(`/api/posts/${postId}/comments/${comentarioId}`);
         return response.data;
     } catch (error) {
         console.error(`Error eliminando el comentario:`, error);
