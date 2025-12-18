@@ -1,0 +1,30 @@
+form{
+    padding: 2em;
+}
+
+form div{
+    display: flex;
+}
+
+form div label{
+    width: 80px;
+}
+
+form div div{
+    display: flex;
+    flex-direction: column;
+    flex: 1 1;
+}
+
+form input{
+ flex: 1 1;
+   
+}
+
+/*
+.inputContainer input,
+.inputContainer textarea {
+    width: 100%;
+    box-sizing: border-box;
+}
+*/

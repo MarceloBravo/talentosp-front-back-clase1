@@ -64,6 +64,10 @@ export const ComentarioFormHook = (postId) => {
     }
 
     const handleNuevoComentarioClick = (e) => {
+        if(nuevoComentario.autor === '' || nuevoComentario.contenido === '' || nuevoComentario.email === ''){
+            alert('Por favor, complete todos los campos del formulario.');
+            return;
+        }
         e.preventDefault();
         addComentarioByPostId(postId, nuevoComentario);
         setNuevoComentario({

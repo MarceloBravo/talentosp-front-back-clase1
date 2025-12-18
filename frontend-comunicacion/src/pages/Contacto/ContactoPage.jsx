@@ -1,62 +1,19 @@
-import React, { useState } from 'react'
+import { SpinnerComponent } from '../../components/Spinner/SpinnerComponent'
+import { ContactoHook } from './ContactoHook'
 import styles from './Contacto.module.css'
-import { sendEmail } from '../../api/ContactoApi'
 
 export const ContactoPage = () => {
-    const [ loading, setLoading ] = useState(false)
-    const [ data, setData ] = useState({
-        nombre: '',
-        email: '',
-        mensaje: ''
-    })
-    const [ errors, setErrors ] = useState({
-        nombre: '',
-        email: '',
-        mensaje: ''
-    })
-
-    const handleInputChange = (e) => {
-        const { name, value } = e.target;
-        if(value.trim() === ''){
-            setErrors({
-                ...errors,
-                [name]: `El campo ${name} es requerido`
-            })
-            return;
-        }
-        setData({
-            ...data,
-            [name]: value
-        })
-    }
-
-    const handleSendEmailButtonClick = () => {
-        if(errors.nombre || errors.email || errors.mensaje){
-            alert('Por favor, completa todos los campos requeridos')
-            return;
-        }
-        setLoading(true);
-        sendEmail(data).then(response => {
-            alert('Email enviado correctamente');
-            setData({
-                nombre: '',
-                email: '',
-                mensaje: ''
-            })
-        })
-        .catch(error => {
-            alert('Error al enviar el email');
-            console.error('Error enviando email:', error);
-        }).finally(() => {
-            setLoading(false);
-        })
-        // Lógica para enviar el email
-    }
-
-
+    const {
+    loading,
+    data,
+    errors,
+    handleInputChange,
+    handleSendEmailButtonClick
+  } = ContactoHook()
 
   return (
     <>
+        {loading && <SpinnerComponent />}
         <div>Contacto</div>
         <div className={styles.formContainer}>
             <form>

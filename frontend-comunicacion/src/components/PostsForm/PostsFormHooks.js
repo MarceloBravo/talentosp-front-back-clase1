@@ -61,8 +61,8 @@ export const PostsFormHooks = () => {
 
     const handleCrearPostClick = (e) => {
         e.preventDefault();
-        if(errorNewPost.titulo || errorNewPost.contenido || errorNewPost.autor){
-            alert('Por favor, corrija los errores en el formulario antes de crear el post.');
+        if(newPost.titulo || newPost.contenido || newPost.autor){
+            alert('Completa todos los campos del formulario.');
             return;
         }
         createPost(newPost).then(createdPost => {
