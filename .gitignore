@@ -1,3 +1,23 @@
 node_modules
 frontend-comunicacion/node_modules
 backend-comunicacion/node_modules
+
+
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+frontend-comunicacion/.pnp
+frontend-comunicacion/.pnp.js
+
+# testing
+frontend-comunicacion/coverage
+
+# production
+frontend-comunicacion/build
+
+# misc
+frontend-comunicacion/.DS_Store
+frontend-comunicacion/.env.local
+frontend-comunicacion/.env.development.local
+frontend-comunicacion/.env.test.local
+frontend-comunicacion/.env.production.local
