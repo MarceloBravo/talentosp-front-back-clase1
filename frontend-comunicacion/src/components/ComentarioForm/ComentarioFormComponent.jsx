@@ -2,22 +2,35 @@ import { ComentarioItemComponent } from '../ComentarioItem/ComentarioItemCompone
 import { ComentarioFormHook } from './ComentarioFormHook'
 import { SpinnerComponent } from '../Spinner/SpinnerComponent'
 import styles from './ComentarioFormComponent.module.css'
+import { MessageComponent } from '../Message/MessageComponent'
 
 export const ComentarioFormComponent = ({postId}) => {
     const {
-        loading,
+        loadingComments,
+        errorComments,
         comentarios,
+        loadingPost,
+        errorPost,
         post,
         nuevoComentario,
         errorNuevoComentario,
         handleNuevoComentarioChange,
         handleNuevoComentarioClick,
         handleBackClick
-  } = ComentarioFormHook(postId)
+    } = ComentarioFormHook(postId)
     
   return (
     <>
-        {loading && <SpinnerComponent />}
+        {(loadingPost || loadingComments) && <SpinnerComponent />}
+        
+        {errorPost && <MessageComponent type="error" message={errorPost} />}
+        {errorComments && <MessageComponent type="error" message={errorComments} />}
+
+        <div className="error-message">
+            {errorPost && <p>{errorPost}</p>}   
+            {errorComments && <p>{errorComments}</p>}
+        </div>
+
         <div className={styles.commentsComponent}>
             <div className={styles.postForm}>
                 <div className={styles.postItem}>

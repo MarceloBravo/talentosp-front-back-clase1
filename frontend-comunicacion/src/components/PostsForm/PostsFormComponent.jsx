@@ -2,9 +2,11 @@ import { PostItemComponent } from '../PostItem/PostItemComponent';
 import { PostsFormHooks } from './PostsFormHooks';
 import { SpinnerComponent } from '../Spinner/SpinnerComponent';
 import styles from './PostsFormComponent.module.css';
+import { MessageComponent } from '../Message/MessageComponent';
 
 export const PostsFormComponent = () => {
     const {
+        error,
         posts,
         newPost,
         errorNewPost,
@@ -18,6 +20,9 @@ export const PostsFormComponent = () => {
   return (
     <>
         {loading && <SpinnerComponent />}
+
+        {error && <MessageComponent type="error" message={error} />}
+
         <div className={styles.postsComponent}>
             <h2>Formulario de posts</h2>
             <div className={styles.postForm}>

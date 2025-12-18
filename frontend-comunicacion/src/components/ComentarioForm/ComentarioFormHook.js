@@ -1,13 +1,14 @@
 import { useEffect, useState } from 'react'
-import { getPostsById } from '../../api/PostApi'
-import { addComentarioByPostId } from '../../api/ComentariosApi'
 import { useNavigate } from 'react-router';
+import { useHttp } from '../../hooks/useHttp';
 
 export const ComentarioFormHook = (postId) => {
-    const [ comentarios, setComentarios ] = useState([]);
-    const [ post, setPost ] = useState(null);
+    // Instancia para comentarios
+    const { loading: loadingComments, error: errorComments, data: comentarios, request: requestComments } = useHttp();
+    // Instancia para el post
+    const { loading: loadingPost, error: errorPost, data: post, request: requestPost } = useHttp();
+    
     const [ refresh, setRefresh ] = useState(false);
-    const [ loading, setLoading ] = useState(false);
     const [ nuevoComentario, setNuevoComentario ] = useState({
         autor: '',
         contenido: '',
@@ -20,79 +21,82 @@ export const ComentarioFormHook = (postId) => {
     });
     const navigate = useNavigate();
 
-    const cargarComentarios = () => {
-        // Lógica para cargar el post
-        setLoading(true);
-        getPostsById(postId).then(post => {
-            setPost(post);
-            console.log(post);
-        }).catch(error => {
-            alert('Error al cargar el post');
-            console.error('Error cargando post:', error);
-        }).finally(() => {
-            setLoading(false);
-        });
-    }
-
+    // Cargar post y comentarios al montar
     useEffect(() => {
-        if(postId){
-            cargarComentarios()
+        const loadData = async () => {
+            try {
+                await Promise.all([
+                    requestPost(`/api/posts/${postId}`),  // Carga el post
+                    requestComments(`/api/posts/${postId}/comments`)  // Carga comentarios
+                ]);
+            } catch (err) {
+                alert('Error cargando datos');
+            }
+        };
+        loadData();
+        // eslint-disable-next-line
+    }, []);
+
+
+    // Refrescar comentarios (y recargar post si es necesario)
+    useEffect(() => {
+        if (refresh) {
+            setRefresh(false);
+            setNuevoComentario({ autor: '', contenido: '', email: '' });
+            const reloadData = async () => {
+                try {
+                    await requestComments(`/api/posts/${postId}/comments`);
+                    // Opcional: Recargar post si cambió
+                    // await requestPost(`/api/posts/${postId}`);
+                } catch (err) {
+                    alert('Error recargando comentarios');
+                }
+            };
+            reloadData();
         }
         // eslint-disable-next-line
-    },[postId]);
+    }, [refresh]);
 
-
-    useEffect(() => {
-        setComentarios(post ? post.comments : []);
-    },[post]);
-
-    useEffect(() => {
-        if(refresh){
-            cargarComentarios()
-        }
-        // eslint-disable-next-line
-    },[refresh]);
-
-
+    // Manejador de los inputs
     const handleNuevoComentarioChange = (e) => {
-        if(e.target.value.length === 0){
+        if (e.target.value.length === 0) {
             setErrorNuevoComentario({ ...errorNuevoComentario, [e.target.name]: `El campo ${e.target.name} no puede estar vacío` });
-        }else{
+        } else {
             setErrorNuevoComentario({ ...errorNuevoComentario, [e.target.name]: '' });
         }
         setNuevoComentario({ ...nuevoComentario, [e.target.name]: e.target.value });
-    }
+    };
 
-    const handleNuevoComentarioClick = (e) => {
-        if(nuevoComentario.autor === '' || nuevoComentario.contenido === '' || nuevoComentario.email === ''){
+    // Crear comentario
+    const handleNuevoComentarioClick = async (e) => {
+        e.preventDefault();
+        if (nuevoComentario.autor === '' || nuevoComentario.contenido === '' || nuevoComentario.email === '') {
             alert('Por favor, complete todos los campos del formulario.');
             return;
         }
-        e.preventDefault();
-        addComentarioByPostId(postId, nuevoComentario);
-        setNuevoComentario({
-            autor: '',
-            contenido: '',
-            email: ''
-        });
-        setRefresh(!refresh);
-        // Lógica para crear el comentario
-    }
-
+        try {
+            await requestComments(`/api/posts/${postId}/comments`, 'POST', nuevoComentario);
+            setRefresh(true);
+        } catch (err) {
+            alert('Error creando comentario');
+        }
+    };
 
     const handleBackClick = (e) => {
         navigate('/');
-    }
+    };
 
-
-  return {
-    loading,
-    comentarios,
-    post,
-    nuevoComentario,
-    errorNuevoComentario,
-    handleNuevoComentarioChange,
-    handleNuevoComentarioClick,
-    handleBackClick
-  }
-}
+    return {
+        loadingComments,
+        errorComments,
+        comentarios,
+        loadingPost,
+        errorPost,
+        post,
+        nuevoComentario,
+        errorNuevoComentario,
+        handleNuevoComentarioChange,
+        handleNuevoComentarioClick,
+        handleBackClick
+    };
+};

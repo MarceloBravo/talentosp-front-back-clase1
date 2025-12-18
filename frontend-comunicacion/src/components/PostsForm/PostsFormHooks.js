@@ -1,10 +1,9 @@
 import { useState, useEffect } from 'react'
-import { createPost, getPosts } from '../../api/PostApi'
+import { useHttp } from '../../hooks/useHttp';
 
 export const PostsFormHooks = () => {
-    const [posts, setPosts] = useState([]);
+    const { loading, error, data: posts, request } = useHttp();
     const [ refresh, setRefresh ] = useState(false);
-    const [ loading, setLoading ] = useState(false);
     const [newPost, setNewPost] = useState({
         titulo: '',
         contenido: '',
@@ -16,40 +15,37 @@ export const PostsFormHooks = () => {
         autor: '',
     });
 
+    // Cargar posts al montar
     useEffect(() => {
-        setLoading(true)
-        getPosts().then(fetchedPosts => {
-            setPosts(fetchedPosts)
-        }).catch(error => {
-            alert('Error obteniendo los posts');
-            console.error('Error obteniendo los posts:', error);
-        })
-        .finally(() => {
-            setLoading(false)
-        });
+        const loadPosts = async () => {
+            try {
+                await request('/api/posts');  // Llama a request genérico
+            } catch (err) {
+                alert('Error obteniendo los posts');
+            }
+        };
+        loadPosts();
+        // eslint-disable-next-line
     }, [])
 
+    // Refrescar posts
     useEffect(() => {
-        if(refresh){
-            setNewPost({
-                titulo: '',
-                contenido: '',
-                autor: '',
-            });
+        if (refresh) {
+            setNewPost({ titulo: '', contenido: '', autor: '' });
             setRefresh(false);
-            setLoading(true)
-            getPosts().then(fetchedPosts => {
-                setPosts(fetchedPosts)
-            }).catch(error => {
-                alert('Error obteniendo los posts');
-                console.error('Error obteniendo los posts:', error);
-            })
-            .finally(() => {
-                setLoading(false)
-            });
+            const reloadPosts = async () => {
+                try {
+                    await request('/api/posts');
+                } catch (err) {
+                    alert('Error obteniendo los posts');
+                }
+            };
+            reloadPosts();
         }
+        // eslint-disable-next-line
     }, [refresh]);
-    
+
+
     const handleNewPostChange = (e) => {
         if(e.target.value.length === 0){
             setErrorNewPost({ ...errorNewPost, [e.target.name]: `El campo ${e.target.name} no puede estar vacío` });
@@ -59,23 +55,20 @@ export const PostsFormHooks = () => {
         setNewPost({ ...newPost, [e.target.name]: e.target.value });
     }
 
-    const handleCrearPostClick = (e) => {
+    // Crear post
+    const handleCrearPostClick = async (e) => {
         e.preventDefault();
-        if(newPost.titulo || newPost.contenido || newPost.autor){
-            alert('Completa todos los campos del formulario.');
-            return;
-        }
-        createPost(newPost).then(createdPost => {
-            setRefresh(true);
-            alert('Post creado exitosamente');
-        }).catch(error => {
+        try {
+            await request('/api/posts', 'POST', newPost);  // Petición POST
+            setRefresh(true);  // Refresca la lista
+        } catch (err) {
             alert('Error creando el post');
-            console.error('Error creando el post:', error);
-        })
+        }
     }
 
     return {
-        posts,
+        posts,  // data del hook
+        error,  // error del hook
         newPost,
         errorNewPost,
         loading,

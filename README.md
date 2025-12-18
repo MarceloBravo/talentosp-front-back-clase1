@@ -5,8 +5,8 @@
 ## Configurar cliente HTTP con Axios
 
 - [x] Crear instancia configurada con base URL
-- [ ] Implementar interceptores de petición y respuesta
-- [ ] Agregar manejo automático de tokens de autenticación
+- [x] Implementar interceptores de petición y respuesta
+- [x] Agregar manejo automático de tokens de autenticación
 - [x] Implementar gestión de estados de carga
 
 - [ ] Crear hook personalizado para estados HTTP

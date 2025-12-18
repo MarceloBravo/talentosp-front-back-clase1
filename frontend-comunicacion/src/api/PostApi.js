@@ -1,4 +1,4 @@
-import instance from 'axiosInstance'
+import instance from './axiosInstance'
 
 async function getPosts() {
     try {
