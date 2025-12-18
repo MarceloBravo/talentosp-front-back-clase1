@@ -1,0 +1,34 @@
+.comentarioItem {
+    border: 1px solid #e1e1e1;
+    border-radius: 8px;
+    padding: 1.5em;
+    margin-bottom: 1.5em;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.comentarioItem p {
+    margin: 0 0 1em 0;
+    color: #333;
+    line-height: 1.6;
+    
+}
+
+.comentarioInfo {
+    align-items: center;
+    font-size: 0.85em;
+    color: #777;
+    background-color: #f9f9f9;
+    padding: 10px;
+    border-radius: 5px;
+    border-top: 1px solid #eee;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    border-top: solid thin;
+    border-color: #d6cccc;
+}
+
+.comentarioInfo div {
+    margin-right: 15px;
+}

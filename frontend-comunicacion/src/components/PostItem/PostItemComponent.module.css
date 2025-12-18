@@ -1,0 +1,80 @@
+.postItem {
+    display: flex;
+    justify-content: space-between;
+    background-color: #ffffff;
+    border: 1px solid #e1e1e1;
+    border-radius: 8px;
+    padding: 1.5em;
+    margin-bottom: 1.5em;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+    transition: box-shadow 0.3s ease-in-out;
+}
+
+.postItem:hover {
+    box-shadow: 0 6px 10px rgba(0,0,0,0.1);
+}
+
+.postInfo {
+    font-size: 0.9em;
+    color: #666;
+    margin-bottom: 1em;
+    background-color: #f9f9f9;
+    padding: 10px;
+    border-radius: 5px;
+    width: 15em;
+}
+
+.postInfo div {
+    padding: 2px 0;
+}
+
+.postColumn-content {
+    flex: 1;
+    padding: 0 1.5em;
+}
+
+.postTitle {
+    margin: 0 0 10px 0;
+    color: #333;
+    font-size: 1.5em;
+}
+
+.postColumnContent{
+    width: -webkit-fill-available;
+}
+
+.postColumnContent p {
+    color: #555;
+    line-height: 1.6;
+}
+
+.postColumnActions {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.postColumnActions .likeButtons {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 1em;
+}
+
+/* Specific button for comments to make it stand out */
+.btnComment {
+    background-color: #337ab7;
+}
+
+.btnComment:hover {
+    background-color: #286090;
+}
+
+/* Unlike button style */
+.btnUnlike {
+    background-color: #d9534f;
+}
+
+.btnUnlike:hover {
+    background-color: #c9302c;
+}

@@ -1,0 +1,18 @@
+.postsComponent {
+    padding: 0px 2em;
+}
+
+.formGroup {
+    display: flex;
+    padding: 3px 0px;
+}
+
+.formGroup label {
+    width: 100px;
+}
+
+.inputContainer {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1;
+}
