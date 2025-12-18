@@ -7,7 +7,7 @@ class LikesController{
 
     async nuevoLike(req, res, next){
         try{
-            const { postId } = req.body;
+            const { postId } = req.params;
             if(!postId){
                 throw new Error('postId es requerido.');
             }
@@ -23,7 +23,7 @@ class LikesController{
 
     async eliminarLike(req, res, next){
         try{
-            const { postId } = req.body;
+            const { postId } = req.params;
             if(!postId){
                 throw new Error('postId es requerido.');
             }

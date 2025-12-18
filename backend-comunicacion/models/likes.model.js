@@ -15,8 +15,8 @@ class LikesModel{
 
     async removeLike(postId){
         const [result] = await this.db.execute(
-            'UPDATE posts SET likes = likes + 1 WHERE id = ? AND  (SELECT COUNT(*) FROM likes WHERE id = ?) > 0',
-            [postId, postId]
+            'UPDATE posts SET likes = likes - 1 WHERE id = ?',
+            [postId]
         );
         return result;
     }

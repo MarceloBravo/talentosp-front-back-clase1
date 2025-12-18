@@ -16,7 +16,7 @@ class postController {
 
     async getAllPosts(req, res, next) {
         try {
-            const [rows] = await this.service.getAllPosts();
+            const rows = await this.service.getAllPosts();
             res.json(rows);
         } catch (error) {
             next(error);
