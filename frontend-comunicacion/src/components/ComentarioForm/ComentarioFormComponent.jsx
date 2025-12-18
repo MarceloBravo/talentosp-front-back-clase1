@@ -44,7 +44,7 @@ export const ComentarioFormComponent = ({postId}) => {
                                     id="input-nombre" 
                                     name="autor" 
                                     placeholder="Ingresa tu nombre" 
-                                    maxLength="255"
+                                    maxLength="100"
                                     value={nuevoComentario.autor} 
                                     onChange={(e) => handleNuevoComentarioChange(e)}
                                 />
@@ -75,7 +75,7 @@ export const ComentarioFormComponent = ({postId}) => {
                                     id="input-email" 
                                     name="email" 
                                     placeholder="email@ejemplo.com" 
-                                    maxLength="100"
+                                    maxLength="255"
                                     value={nuevoComentario.email} 
                                     onChange={(e) => handleNuevoComentarioChange(e)}
                                 />

@@ -1,0 +1,27 @@
+.menu{
+    position: fixed;
+    top: 43px;
+    height: 43px;
+    width: 100%;
+    background-color: white;
+    border-bottom: solid thin;
+    border-bottom-color: #cdd8de;
+}
+
+ul{
+    display: flex;
+}
+
+li{
+    margin: 0px 10px;
+}
+
+li a {
+  text-decoration: none;
+  color: black;
+}
+
+li a:hover {
+  text-decoration: underline;
+  color: rgb(1, 82, 84);
+}
