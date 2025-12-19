@@ -2,9 +2,11 @@ import { formatDate } from '../../utils/fechaUtils'
 import { PostItemHook } from './PostItemHook'
 import { SpinnerComponent } from '../Spinner/SpinnerComponent'
 import styles from './PostItemComponent.module.css'
+import { MessageComponent } from '../Message/MessageComponent'
 
 export const PostItemComponent = ({post, setRefresh}) => {
     const {
+        error,
         loading,
         handleDarLikeClick,
         handleDarUnlikeClick,
@@ -16,6 +18,9 @@ export const PostItemComponent = ({post, setRefresh}) => {
   return (
     <>
         {loading && <SpinnerComponent />}
+
+        {error && <MessageComponent type="error" message={error} />}
+
         <div key={post.id} className={styles.postItem}>
             <div className={styles.postInfo}>
                 <div>

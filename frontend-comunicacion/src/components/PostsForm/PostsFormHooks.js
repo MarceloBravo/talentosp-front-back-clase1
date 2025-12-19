@@ -21,7 +21,7 @@ export const PostsFormHooks = () => {
             try {
                 await request('/api/posts');  // Llama a request genérico
             } catch (err) {
-                alert('Error obteniendo los posts');
+                console.log('Error obteniendo los posts');
             }
         };
         loadPosts();
@@ -37,7 +37,7 @@ export const PostsFormHooks = () => {
                 try {
                     await request('/api/posts');
                 } catch (err) {
-                    alert('Error obteniendo los posts');
+                    console.log('Error obteniendo los posts');
                 }
             };
             reloadPosts();
@@ -62,7 +62,7 @@ export const PostsFormHooks = () => {
             await request('/api/posts', 'POST', newPost);  // Petición POST
             setRefresh(true);  // Refresca la lista
         } catch (err) {
-            alert('Error creando el post');
+            console.log('Error creando el post');
         }
     }
 

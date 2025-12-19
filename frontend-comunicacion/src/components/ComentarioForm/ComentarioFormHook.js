@@ -30,7 +30,7 @@ export const ComentarioFormHook = (postId) => {
                     requestComments(`/api/posts/${postId}/comments`)  // Carga comentarios
                 ]);
             } catch (err) {
-                alert('Error cargando datos');
+                console.log('Error cargando datos');
             }
         };
         loadData();
@@ -49,7 +49,7 @@ export const ComentarioFormHook = (postId) => {
                     // Opcional: Recargar post si cambió
                     // await requestPost(`/api/posts/${postId}`);
                 } catch (err) {
-                    alert('Error recargando comentarios');
+                    console.log('Error recargando comentarios');
                 }
             };
             reloadData();
@@ -71,14 +71,14 @@ export const ComentarioFormHook = (postId) => {
     const handleNuevoComentarioClick = async (e) => {
         e.preventDefault();
         if (nuevoComentario.autor === '' || nuevoComentario.contenido === '' || nuevoComentario.email === '') {
-            alert('Por favor, complete todos los campos del formulario.');
+            console.log('Por favor, complete todos los campos del formulario.');
             return;
         }
         try {
             await requestComments(`/api/posts/${postId}/comments`, 'POST', nuevoComentario);
             setRefresh(true);
         } catch (err) {
-            alert('Error creando comentario');
+            console.log('Error creando comentario');
         }
     };
 

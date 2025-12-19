@@ -3,7 +3,8 @@ import { darLikePost, darUnlikePost } from '../../api/PostApi'
 import { useState } from 'react';
 
 export const PostItemHook = ({post, setRefresh}) => {
-    const [ loading, setLoading ] = useState(false)
+    const [ loading, setLoading ] = useState(null)
+    const [ error, setError ] = useState(null)
     const navigate = useNavigate();
 
     const handleDarLikeClick = () => {
@@ -11,8 +12,9 @@ export const PostItemHook = ({post, setRefresh}) => {
             setLoading(true);
             darLikePost(post.id).then(updatedPost => {
                 setRefresh(true);
+                setError(null);
             }).catch(error => {
-                alert('Error al dar like al post');
+                setError('Error al dar like al post');
                 console.error('Error dando like al post:', error);
             }).finally(() => {
                 setLoading(false);
@@ -24,8 +26,9 @@ export const PostItemHook = ({post, setRefresh}) => {
             setLoading(true);
             darUnlikePost(post.id).then(updatedPost => {
                 setRefresh(true);
+                setError(null);
             }).catch(error => {
-                alert('Error al dar unlike al post');
+                setError('Error al dar unlike al post');
                 console.error('Error quitando like al post:', error);
             }).finally(() => {
                 setLoading(false);
@@ -39,6 +42,7 @@ export const PostItemHook = ({post, setRefresh}) => {
     
 
   return {
+    error,
     loading,
     handleDarLikeClick,
     handleDarUnlikeClick,
