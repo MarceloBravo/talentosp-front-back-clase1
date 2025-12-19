@@ -1,14 +1,9 @@
-import instance from './axiosInstance'
+import { useHttp } from '../hooks/useHttp';
 
-async function sendEmail(data) {
-    try {
-        const response = await instance.post(`/api/contacto`, data);
-        return response.data;
-    } catch (error) {
-        console.error('Error enviando el email:', error);
-        throw error;
-    }
+export const useEmailApi = () => {
+    const { request } = useHttp();
+
+    const sendEmail = (data) => request(`/api/contacto`, 'POST', data);
+
+    return {sendEmail}
 }
-
-export { sendEmail };
-

@@ -14,7 +14,7 @@ instance.interceptors.request.use(
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
-    console.log('Request:', config);
+    //console.log('Request:', config);
     return config;
   },
   (error) => {
@@ -26,7 +26,7 @@ instance.interceptors.request.use(
 // Interceptor de response
 instance.interceptors.response.use(
   (response) => {
-    console.log('Response:', response);
+    //console.log('Response:', response);
     return response;
   },
   (error) => {

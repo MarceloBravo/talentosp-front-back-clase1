@@ -1,38 +1,28 @@
 import { useNavigate } from 'react-router'
-import { darLikePost, darUnlikePost } from '../../api/PostApi'
-import { useState } from 'react';
+import { useHttp } from '../../hooks/useHttp';
 
 export const PostItemHook = ({post, setRefresh}) => {
-    const [ loading, setLoading ] = useState(null)
-    const [ error, setError ] = useState(null)
+    const { loading, error, request } = useHttp();
     const navigate = useNavigate();
 
-    const handleDarLikeClick = () => {
+    const handleDarLikeClick = async () => {
             // Lógica para dar like al post
-            setLoading(true);
-            darLikePost(post.id).then(updatedPost => {
+            try{
+                await request(`/api/posts/${post.id}/likes`, 'POST');
                 setRefresh(true);
-                setError(null);
-            }).catch(error => {
-                setError('Error al dar like al post');
-                console.error('Error dando like al post:', error);
-            }).finally(() => {
-                setLoading(false);
-            })
+            }catch(error){
+                console.log(error)
+            }
         }
     
-        const handleDarUnlikeClick = () => {
+        const handleDarUnlikeClick = async () => {
             // Lógica para quitar like al post
-            setLoading(true);
-            darUnlikePost(post.id).then(updatedPost => {
+            try{
+                await request(`/api/posts/${post.id}/likes`, 'DELETE');
                 setRefresh(true);
-                setError(null);
-            }).catch(error => {
-                setError('Error al dar unlike al post');
-                console.error('Error quitando like al post:', error);
-            }).finally(() => {
-                setLoading(false);
-            })
+            }catch(error){
+                console.log(error)
+            }
         }
     
         const handleComentarClick = () => {
