@@ -21,3 +21,5 @@ frontend-comunicacion/.env.local
 frontend-comunicacion/.env.development.local
 frontend-comunicacion/.env.test.local
 frontend-comunicacion/.env.production.local
+
+.env
